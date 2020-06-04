@@ -3,6 +3,7 @@ def JNLP_CONTAINER = 'jnlp'
 def tokens = TO_PROJECT.tokenize('/')
 def NAMESPACE = tokens[0]
 def IMAGE = tokens[1]
+
 podTemplate(cloud:'openshift', label: BUILD_TAG,
     containers: [ containerTemplate(name: "jnlp", image: JENKINS_SLAVE) ]
     ) {
@@ -15,9 +16,9 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
 
         echo "NAMESPACE: ${NAMESPACE}"
         echo "IMAGE: ${IMAGE}"
-        sh "oc project ${NAMESPACE}"
-        sh "oc get"
-
+        sh "oc tag ${FROM_IMAGE} ${TO_PROJECT}"
+        sh "python build.py project=${NAMESPACE} name=${SERVICE_NAME}"
+        sh "python patch.py project=${NAMESPACE} name=${SERVICE_NAME} image=${IMAGE}"
       }
     }
 
