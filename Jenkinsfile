@@ -8,8 +8,8 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
 
     container(JNLP_CONTAINER) {
       stage('Tagging Image') {
-        echo "${NAMESPACE}"
-          echo "${IMAGE}"
+        echo "FROM_IMAGE: ${FROM_IMAGE}"
+          echo " TO_PROJECT: ${TO_PROJECT}"
       }
     }
 
