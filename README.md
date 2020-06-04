@@ -67,22 +67,66 @@ The script basically read all the templates inside the folder and create each on
 	python build.py project=${NAMESPACE} name=${SERVICE_NAME}
 ``` 
 
+> The name parameter replace %name% in the template, this particular attribute has a special meaning for the script so don't change it. 
 
 
 
+### Customizing  
 
 
+To customize your build is recommended that you use the patch.py script, and define your updates as files patches that will help you to cut the problem into smaller ones. 
 
 
+So let's say you want to limit the amount of RAM memory your container will use, you can start by defining the patch file inside the patch folder like this: 
 
 
+```yml
+spec:
+  template:
+    spec:
+      containers:
+      - name: default-container
+        resources:
+            limits:
+              memory: 80Mi
+```
+
+> Save this file as ``limit_ram.yml``. 
 
 
+And run the script to automatically inject your changes to your service: 
+
+```sh
+python patch.py project=my-project name=httpd-frontend
+```
+> This will apply all the patch in the ``patches`` folder. OC will handle the update for us, it will ignore the patch if they are the same.
 
 
+#### Dynamic Values 
+
+Let's use the above example and choose a dynamic memory value: 
+
+```yml
+spec:
+  template:
+    spec:
+      containers:
+      - name: default-container
+        resources:
+            limits:
+              memory: %memory%Mi
+```
+
+> We can set a placeholder using this ``%value%`` notation. 
 
 
+Then we run the script like this: 
 
+```sh
+python patch.py project=my-project name=httpd-frontend memory=140
+```
+
+> Now the container will run under a 140MB of RAM limit. 
 
 
 
