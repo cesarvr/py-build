@@ -1,6 +1,6 @@
 # Build Script 
 
-This script basically creates a generic infrastructure to deploy generic containers Openshift. We can use these templates to decouple the container creation like image tagging or S2I from the deployment configuration. 
+This script automates the deployment generic containers Openshift. We can use these templates to decouple the container creation like image tagging or S2I from the deployment configuration. 
 
 I separated this process in two folder: 
 
