@@ -23,4 +23,9 @@ oc set env bc/deploy-services FROM_IMAGE=Dev/frontend:latest TO_PROJECT=UAT/fron
 ## Remember to set your private key in case you use a private Repo.
 #  oc create secret generic gitsecret --from-file=ssh-privatekey=$HOME/.ssh/privatekey --type=kubernetes.io/ssh-auth
 ```
+> Before doing anything now you need to provide permissions to the Jenkins service account to perform actions in the desired project ``uat``.  
+
+```sh
+  oc adm policy add-role-to-user admin system:serviceaccount:ctest:jenkins -n uat
+```
 
