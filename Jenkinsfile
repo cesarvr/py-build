@@ -9,7 +9,8 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
     container(JNLP_CONTAINER) {
       stage('Tagging Image') {
         echo "FROM_IMAGE: ${FROM_IMAGE}"
-          echo " TO_PROJECT: ${TO_PROJECT}"
+        echo "TO_PROJECT: ${TO_PROJECT}"
+        echo "TO_PROJECT: ${TO_PROJECT.tokenize('/')}"
       }
     }
 
