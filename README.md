@@ -67,8 +67,10 @@ The script basically read all the templates inside the folder and create each on
 	python build.py project=${NAMESPACE} name=${SERVICE_NAME}
 ``` 
 
-> The name parameter replace %name% in the template, this particular attribute has a special meaning for the script so don't change it. 
 
+![](https://github.com/cesarvr/py-build/blob/master/docs/automatic-build.gif?raw=true)
+
+> The name parameter replace **%name%** in the template. This attribute in particular (**name**) has a special meaning for the script so **please don't change it**. 
 
 
 ### Customizing  
