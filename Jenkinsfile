@@ -17,6 +17,7 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
         echo "IMAGE: ${IMAGE}"
         sh "oc project ${NAMESPACE}"
         sh "oc get"
+
       }
     }
 
