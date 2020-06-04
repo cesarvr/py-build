@@ -16,9 +16,9 @@ To install this pipeline example you just need to run:
 ```sh
 oc new-build <the-url-for-this-repo> --name=deploy-services --strategy=pipeline
 # Now you need to add the environment variables
-# oc set env bc/deploy-services FROM_IMAGE=<Project>/<image-to-promote> TO_PROJECT=<destination-project>
+# oc set env bc/deploy-services FROM_IMAGE=<Project>/<image-to-promote> TO_PROJECT=<destination-project> SERVICE_NAME=<service name>
 
-oc set env bc/deploy-services FROM_IMAGE=Dev/frontend:latest TO_PROJECT=UAT/frontend:uat 
+oc set env bc/deploy-services FROM_IMAGE=Dev/frontend:latest TO_PROJECT=UAT/frontend:uat SERVICE_NAME=frontend 
 
 ## Remember to set your private key in case you use a private Repo.
 #  oc create secret generic gitsecret --from-file=ssh-privatekey=$HOME/.ssh/privatekey --type=kubernetes.io/ssh-auth
