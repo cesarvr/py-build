@@ -1,7 +1,8 @@
 #!/bin/python
+
 import subprocess
-from args import getUserArguments
-import tmpl
+from args import getUserArguments  #args.py
+import tmpl  #tmpl.py
 
 def buildComponents(parsedTemplates, ns):
  cmd = ["oc", "apply", "-n", ns, "-f", "-"]
