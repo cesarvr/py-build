@@ -30,3 +30,67 @@ Before doing anything now you need to provide permissions to the Jenkins service
   oc adm policy add-role-to-user admin system:serviceaccount:ctest:jenkins -n uat
 ```
 
+
+## Scripts 
+
+### Build 
+
+This scripts as mentioned before handles the object creation, to create this objects it uses ``yaml templates`` like this one. 
+
+```yml
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: %name% 
+  labels:
+    app: %name%
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: %name%
+    spec:
+      containers:
+      - name: default-container
+        image: busybox:latest
+        ports:
+        - containerPort: 8080 
+```
+
+> Those ``%name%`` are placeholders that you can use to replace the values at runtime. 
+
+
+The script basically read all the templates inside the folder and create each one in the specified project: 
+
+```sh
+	python build.py project=${NAMESPACE} name=${SERVICE_NAME}
+``` 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

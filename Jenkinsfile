@@ -19,7 +19,7 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
         echo "NAMESPACE: ${NAMESPACE}"
         echo "IMAGE: ${IMAGE}"
         sh "oc tag ${FROM_IMAGE} ${TO_PROJECT}"
-        sh "ls -lart"
+
         sh "python build.py project=${NAMESPACE} name=${SERVICE_NAME}"
         sh "python patch.py project=${NAMESPACE} name=${SERVICE_NAME} image=${IMAGE}"
       }
