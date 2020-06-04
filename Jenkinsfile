@@ -12,8 +12,11 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
       stage('Tagging Image') {
         echo "FROM_IMAGE: ${FROM_IMAGE}"
         echo "TO_PROJECT: ${TO_PROJECT}"
+
         echo "NAMESPACE: ${NAMESPACE}"
         echo "IMAGE: ${IMAGE}"
+        sh "oc project ${NAMESPACE}"
+        sh "oc get"
       }
     }
 
