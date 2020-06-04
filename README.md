@@ -64,7 +64,7 @@ spec:
 The script basically read all the templates inside the folder and create each one in the specified project: 
 
 ```sh
-	python build.py project=${NAMESPACE} name=${SERVICE_NAME}
+python build.py project=${NAMESPACE} name=${SERVICE_NAME}
 ``` 
 
 
