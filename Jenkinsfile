@@ -5,7 +5,8 @@ def NAMESPACE = tokens[0]
 def IMAGE = tokens[1]
 
 podTemplate(cloud:'openshift', label: BUILD_TAG,
-    containers: [ containerTemplate(name: "jnlp", image: JENKINS_SLAVE) ]
+    serviceAccount: 'jenkins',
+    containers: [ containerTemplate(name: "jnlp", image: JENKINS_SLAVE) ],
     ) {
   node(BUILD_TAG) {
 
