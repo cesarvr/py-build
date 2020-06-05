@@ -15,7 +15,7 @@ def run(arguments):
 
     if "from" not in arguments:
         patches_folder  = "patches"
-    else
+    else:
         patches_folder  = arguments["from"]
 
     print "Patching Deployment"
