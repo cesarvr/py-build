@@ -29,6 +29,8 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
 
       stage('Updating Objects') {
         sh "python patch.py project=${NAMESPACE} name=${SERVICE_NAME} image=${IMAGE}"
+
+        sh "oc wait -n ${NAMESPACE} dc/${SERVICE_NAME} --for condition=available --timeout=-1s"
       }
 
       stage('Smoke Test') {
