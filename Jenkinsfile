@@ -33,7 +33,7 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
 
       stage('Smoke Test') {
         def route = sh(
-            script: "oc -n uat get route svc-b -o=jsonpath={.spec.host}",
+            script: "oc -n uat get route ${SERVICE_NAME} -o=jsonpath={.spec.host}",
             returnStdout: true ).trim()
           echo "Running Smoke Tests: ${route}"
           sh "python smoke.py https://${route}"
