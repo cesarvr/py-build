@@ -13,16 +13,16 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
     container(JNLP_CONTAINER) {
       stage('Tagging Image') {
         checkout scm
-        echo "FROM_IMAGE: ${FROM_IMAGE}"
-        echo "TO_PROJECT: ${TO_PROJECT}"
+          echo "FROM_IMAGE: ${FROM_IMAGE}"
+          echo "TO_PROJECT: ${TO_PROJECT}"
 
-        echo "NAMESPACE: ${NAMESPACE}"
-        echo "IMAGE: ${IMAGE}"
-        sh "oc tag ${FROM_IMAGE} ${TO_PROJECT}"
+          echo "NAMESPACE: ${NAMESPACE}"
+          echo "IMAGE: ${IMAGE}"
+          sh "oc tag ${FROM_IMAGE} ${TO_PROJECT}"
 
       }
-  
-      
+
+
       stage('Creating Objects') {
         sh "python build.py project=${NAMESPACE} name=${SERVICE_NAME}"
       }
@@ -32,11 +32,11 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
       }
 
       stage('Smoke Test') {
-      	def route = sh(
-		script: "oc -n uat get route svc-b -o=jsonpath={.spec.host}",
-		returnStdout: true ).trim()
-	echo "Running Smoke Tests: ${route}"
-	sh "python smoke.py ${route}"
+        def route = sh(
+            script: "oc -n uat get route svc-b -o=jsonpath={.spec.host}",
+            returnStdout: true ).trim()
+          echo "Running Smoke Tests: ${route}"
+          sh "python smoke.py https://${route}"
       }
 
       stage('Validating'){
