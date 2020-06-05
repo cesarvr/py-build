@@ -17,10 +17,10 @@ spec:
     jenkinsPipelineStrategy:
       env:
       - name: FROM_IMAGE
-        value: ctest/service-a:latest
+        value: ctest/service-c:latest
       - name: TO_PROJECT
-        value: uat/service-a:uat
+        value: uat/service-c:uat
       - name: SERVICE_NAME
-        value: svc-a
+        value: service-c
       jenkinsfilePath: Jenkinsfile
     type: JenkinsPipeline
