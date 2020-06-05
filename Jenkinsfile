@@ -40,7 +40,7 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
       }
 
       stage('Validating'){
-
+        echo "Ready for Prod"
       }
     }
 
