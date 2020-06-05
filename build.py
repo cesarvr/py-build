@@ -8,9 +8,9 @@ def buildComponents(parsedTemplates, ns):
  cmd = ["oc", "apply", "-n", ns, "-f", "-"]
 
  for template in parsedTemplates: 
-    oc_proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
-    oc_proc.communicate(template)
-    oc_proc.wait()
+    ocProcess = subprocess.Popen(cmd, stdin=subprocess.PIPE)
+    ocProcess.communicate(template)
+    ocProcess.wait()
 
 def run(arguments):
     template_folder = "templates"

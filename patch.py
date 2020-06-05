@@ -12,7 +12,11 @@ def applyPatches(patchTemplates, name, ns):
         oc_proc.wait()
 
 def run(arguments):
-    patches_folder  = "patches"
+
+    if "from" not in arguments:
+        patches_folder  = "patches"
+    else
+        patches_folder  = arguments["from"]
 
     print "Patching Deployment"
     parsedPatchTemplates = tmpl.parseBuildTemplate(patches_folder, arguments) 

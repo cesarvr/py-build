@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: colors 
+data:
+  # file: config.txt  content: indianred 
+  config.txt: |
+    indianred
