@@ -20,8 +20,27 @@ podTemplate(cloud:'openshift', label: BUILD_TAG,
         echo "IMAGE: ${IMAGE}"
         sh "oc tag ${FROM_IMAGE} ${TO_PROJECT}"
 
+      }
+  
+      
+      stage('Creating Objects') {
         sh "python build.py project=${NAMESPACE} name=${SERVICE_NAME}"
+      }
+
+      stage('Updating Objects') {
         sh "python patch.py project=${NAMESPACE} name=${SERVICE_NAME} image=${IMAGE}"
+      }
+
+      stage('Smoke Test') {
+      	def route = sh(
+		script: "oc -n uat get route svc-b -o=jsonpath={.spec.host}",
+		returnStdout: true ).trim()
+	echo "Running Smoke Tests: ${route}"
+	sh "python smoke.py ${route}"
+      }
+
+      stage('Validating'){
+
       }
     }
 

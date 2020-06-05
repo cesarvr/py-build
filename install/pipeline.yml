@@ -1,0 +1,26 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: deploy-services
+    app: deploy-services
+  name: deploy-services
+spec:
+  source:
+    git:
+      ref: master
+      uri: https://github.com/cesarvr/py-build.git
+    sourceSecret:
+      name: gitsecret
+    type: Git
+  strategy:
+    jenkinsPipelineStrategy:
+      env:
+      - name: FROM_IMAGE
+        value: ctest/service-a:latest
+      - name: TO_PROJECT
+        value: uat/service-a:uat
+      - name: SERVICE_NAME
+        value: svc-a
+      jenkinsfilePath: Jenkinsfile
+    type: JenkinsPipeline
