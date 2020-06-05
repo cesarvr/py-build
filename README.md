@@ -15,19 +15,20 @@ To install this pipeline example you just need to run:
 
 ```sh
 oc new-build <the-url-for-this-repo> --name=deploy-services --strategy=pipeline
-# Now you need to add the environment variables
-# oc set env bc/deploy-services FROM_IMAGE=<Project>/<image-to-promote> TO_PROJECT=<destination-project> SERVICE_NAME=<service name>
 
+
+# Now you need to add the environment variables
 oc set env bc/deploy-services FROM_IMAGE=Dev/frontend:latest TO_PROJECT=UAT/frontend:uat SERVICE_NAME=frontend 
 
+
 ## Remember to set your private key in case you use a private Repo.
-#  oc create secret generic gitsecret --from-file=ssh-privatekey=$HOME/.ssh/privatekey --type=kubernetes.io/ssh-auth
+oc create secret generic gitsecret --from-file=ssh-privatekey=$HOME/.ssh/private-ssh-key --type=kubernetes.io/ssh-auth
 ```
 
 Before doing anything now you need to provide permissions to the Jenkins service account to perform actions in the desired project ``uat``.  
 
 ```sh
-  oc adm policy add-role-to-user admin system:serviceaccount:ctest:jenkins -n uat
+  oc adm policy add-role-to-user admin system:serviceaccount:<project>:jenkins -n uat
 ```
 
 
@@ -64,11 +65,13 @@ spec:
 The script basically read all the templates inside the folder and create each one in the specified project: 
 
 ```sh
-	python build.py project=${NAMESPACE} name=${SERVICE_NAME}
+python build.py project=${NAMESPACE} name=${SERVICE_NAME}
 ``` 
 
-> The name parameter replace %name% in the template, this particular attribute has a special meaning for the script so don't change it. 
 
+![](https://github.com/cesarvr/py-build/blob/master/docs/automatic-build.gif?raw=true)
+
+> The name parameter replace **%name%** in the template. This attribute in particular (**name**) has a special meaning for the script so **please don't change it**. 
 
 
 ### Customizing  
