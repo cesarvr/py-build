@@ -2,25 +2,17 @@
 
 import subprocess
 from args import getUserArguments  #args.py
-import tmpl  #tmpl.py
+from tmpl import loadTemplates  #tmpl.py
 
-def applyPatches(patchTemplates, name, ns):
+def applyPatches(patchTemplates, arguments):
+    name = arguments['name']
+    ns   = arguments['project']
 
     for template in patchTemplates: 
         cmd  = ["oc", "patch", "dc", name, "-n", ns, "--patch", template]
         oc_proc = subprocess.Popen(cmd,  stdin=subprocess.PIPE)
         oc_proc.wait()
 
-def run(arguments):
-
-    if "from" not in arguments:
-        patches_folder  = "patches"
-    else:
-        patches_folder  = arguments["from"]
-
-    print "Patching Deployment"
-    parsedPatchTemplates = tmpl.parseBuildTemplate(patches_folder, arguments) 
-    applyPatches(parsedPatchTemplates, arguments["name"], arguments["project"])
-
 arguments = getUserArguments()
-run(arguments)
+templates = loadTemplates(arguments)
+applyPatches(templates, arguments)

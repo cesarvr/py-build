@@ -15,9 +15,6 @@ def buildComponents(parsedTemplates, arguments):
 
 
 arguments = getUserArguments()
-if 'from' not in arguments:
-    arguments['from'] = "templates"
-    print "Using templates folder"
 
 # Load the templates from arguments['from'] parameter
 templates = loadTemplates(arguments)  

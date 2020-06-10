@@ -12,3 +12,14 @@ def parseBuildTemplate(path, arguments):
         templates = map(lambda template: path + "/" + template, templates)
 	return map(lambda template: readTemplates(template, arguments), templates)
 
+
+def loadTemplates(arguments):
+    if "from" not in arguments:
+        patches_folder  = "patches"
+    else:
+        patches_folder  = arguments["from"]
+
+    print "Patching Deployment"
+    return parseBuildTemplate(patches_folder, arguments) 
+
+
