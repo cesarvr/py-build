@@ -3,7 +3,7 @@ spec:
     spec:
       containers:
       - name: default-container
-        readinessProbe: 
+        readinessProbe:
           httpGet:
             path: /notify
             port: 8080
