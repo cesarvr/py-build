@@ -5,7 +5,7 @@ spec:
       - name: default-container
         readinessProbe: 
           httpGet:
-            path: /ready,
+            path: /notify
             port: 8080
             scheme: HTTP
           initialDelaySeconds: 5
